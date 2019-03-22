@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<script>
+    var base_url1='http://localhost:8081';
+    var base_url='http://localhost:8889/api/largeScreen';
+    $.ajax({
+        url: base_url1 + "/hello",
+        type: "get",
+        contentType: "application/json",
+        dataType: 'JSON',
+        cache: false,
+        success: function(res) {
+            console.log(res)
+        }
+    })
+    $.ajax({
+        url: base_url + "/peopleNumber",
+        type: "get",
+        contentType: "application/json",
+        dataType: 'JSON',
+        cache: false,
+        success: function(res) {
+           console.log(res)
+        }
+    })
+</script>
+</body>
+</html>
