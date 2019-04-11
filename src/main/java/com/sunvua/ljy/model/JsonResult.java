@@ -1,4 +1,4 @@
-package com.sunvua.ljy.pojo;
+package com.sunvua.ljy.model;
 
 /**
  * http json 响应实体
