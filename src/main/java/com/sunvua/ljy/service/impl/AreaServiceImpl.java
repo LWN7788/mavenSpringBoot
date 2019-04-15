@@ -26,7 +26,7 @@ public class AreaServiceImpl implements AreaService {
     @Transactional
     @Override
     public boolean addArea(Area area) {
-        if(area.getAreaName()!=null&&"".equals(area.getAreaName())){
+        if(area.getAreaName()!=null&&!"".equals(area.getAreaName())){
             area.setCreateTime(new Date());
             area.setLastEditTime(new Date());
             try{
@@ -46,11 +46,38 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public boolean modifyArea(Area area) {
-        return false;
+        if(area.getAreaId()!=null&&area.getAreaId()>0){
+            area.setLastEditTime(new Date());
+            try{
+                int effectedNum=areaDao.updateArea(area);
+                if(effectedNum>0){
+                    return true;
+                }else{
+                    throw new RuntimeException("更新区域信息失败");
+                }
+            }catch (Exception e){
+                throw new RuntimeException("更新区域信息失败"+e.getMessage());
+            }
+        }else{
+            throw new RuntimeException("区域信息不能为空");
+        }
     }
 
     @Override
     public boolean deleteArea(int areaId) {
-        return false;
+        if(areaId>0){
+            try{
+                int effectedNum=areaDao.deleteArea(areaId);
+                if(effectedNum>0){
+                    return true;
+                }else{
+                    throw new RuntimeException("删除区域信息失败");
+                }
+            }catch (Exception e){
+                throw new RuntimeException("删除区域信息失败"+e.getMessage());
+            }
+        }else{
+            throw new RuntimeException("Id不能为空");
+        }
     }
 }

@@ -34,5 +34,17 @@ public class AreaController {
         modeMap.put("successs",areaService.addArea(area));
         return modeMap;
     }
+    @PostMapping("/updatearea")
+    private Map<String,Object> updataArea(@RequestBody Area area){
+        Map<String,Object> modeMap=new HashMap<String,Object>();
+        modeMap.put("successs",areaService.modifyArea(area));
+        return modeMap;
+    }
+    @RequestMapping("/deletearea")
+    private Map<String,Object> deleteArea(Integer areaId){
+        Map<String,Object> modeMap=new HashMap<String,Object>();
+        modeMap.put("successs",areaService.deleteArea(areaId));
+        return modeMap;
+    }
 
 }

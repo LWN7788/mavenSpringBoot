@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sunvua.ljy.dao.AreaDao">
-    <!--<resultMap id="gainUsers" type="com.sunvua.ljy.model.Area">-->
-        <!--<id property="id" column="id" jdbcType="VARCHAR" />-->
-        <!--<result property="username" column="username" jdbcType="VARCHAR" />-->
-        <!--<result property="password" column="password" jdbcType="VARCHAR" />-->
-    <!--</resultMap>-->
-
-    <select id="queryArea" resultType="com.sunvua.ljy.model.Area">
+    <resultMap id="AreaMap" type="com.sunvua.ljy.model.Area">
+        <id property="areaId" column="area_id"/>
+        <result property="areaName" column="area_name" />
+        <result property="priority" column="priority" />
+        <result property="createTime" column="create_time" />
+        <result property="lastEditTime" column="last_edit_time" />
+    </resultMap>
+    <select id="queryArea" resultMap="AreaMap">
         select * from tb_area
         order by priority
         desc
     </select>
-    <select id="queryAreaById" resultType="com.sunvua.ljy.model.Area">
+    <select id="queryAreaById" resultMap="AreaMap">
         select area_id,area_name,priority,create_time,last_edit_time
         from tb_area
         where
