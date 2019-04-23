@@ -1,7 +1,10 @@
 package com.sunvua.ljy.controller;
 
+import com.sunvua.ljy.controller.error.BusinessExcepiton;
+import com.sunvua.ljy.controller.error.EmBusinessError;
 import com.sunvua.ljy.controller.viewObject.UserVO;
 import com.sunvua.ljy.model.UserModel;
+import com.sunvua.ljy.response.ReturnCommonType;
 import com.sunvua.ljy.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +21,20 @@ public class UserController {
     UserService userService;
     @RequestMapping("/get")
     @ResponseBody
-    public UserVO getUser(@RequestParam(name="id") Integer id){
+    public ReturnCommonType getUser(@RequestParam(name="id") Integer id) throws BusinessExcepiton{
         UserModel userModel=userService.getUserById(id);
-        return convertFormModel(userModel);
+        if(userModel==null){
+            throw new BusinessExcepiton(EmBusinessError.USER_NOT_EXIST);
+        }
+        UserVO userVO=convertFormModel(userModel);
+        return ReturnCommonType.create(userVO);
     }
     private UserVO convertFormModel(UserModel userModel){
         if(userModel==null){
             return null;
         }
         UserVO userVO=new UserVO();
-        BeanUtils.copyProperties(userVO,userModel);
+        BeanUtils.copyProperties(userModel,userVO);
         return userVO;
     }
 }
