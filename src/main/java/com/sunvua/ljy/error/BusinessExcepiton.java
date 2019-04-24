@@ -1,4 +1,4 @@
-package com.sunvua.ljy.controller.error;
+package com.sunvua.ljy.error;
 
 public class BusinessExcepiton extends Exception implements CommonError {
     private CommonError commonError;

@@ -1,4 +1,4 @@
-package com.sunvua.ljy.controller.error;
+package com.sunvua.ljy.error;
 
 public interface CommonError {
     public int getErrorCode();

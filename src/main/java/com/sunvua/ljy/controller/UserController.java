@@ -1,22 +1,25 @@
 package com.sunvua.ljy.controller;
 
-import com.sunvua.ljy.controller.error.BusinessExcepiton;
-import com.sunvua.ljy.controller.error.EmBusinessError;
+import com.sunvua.ljy.error.BusinessExcepiton;
+import com.sunvua.ljy.error.EmBusinessError;
 import com.sunvua.ljy.controller.viewObject.UserVO;
 import com.sunvua.ljy.model.UserModel;
 import com.sunvua.ljy.response.ReturnCommonType;
 import com.sunvua.ljy.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
     @Autowired
     UserService userService;
     @RequestMapping("/get")
@@ -37,4 +40,7 @@ public class UserController {
         BeanUtils.copyProperties(userModel,userVO);
         return userVO;
     }
+
+
 }
+
