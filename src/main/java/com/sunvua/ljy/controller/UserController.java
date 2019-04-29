@@ -25,6 +25,25 @@ public class UserController extends BaseController{
     UserService userService;
     @Autowired
     HttpServletRequest httpServletRequest;
+
+    public ReturnCommonType register(String telphone,String otpCode,String name,Integer gender,Integer age,String encrptPassword) throws BusinessExcepiton{
+        String inSessionOtpCode=(String)httpServletRequest.getSession().getAttribute(telphone);
+        if(!inSessionOtpCode.equals(otpCode)){
+            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR,"短信验证失败");
+        }
+        UserModel userModel=new UserModel();
+        userModel.setTelephone(telphone);
+        userModel.setName(name);
+        userModel.setGender(gender);
+        userModel.setAge(age);
+        userModel.setEncrptPassword(encrptPassword);
+        userService.register(userModel);
+
+        return ReturnCommonType.create(null);
+    }
+
+
+
     @RequestMapping("/getotp")
     @ResponseBody
     @CrossOrigin//解决跨域

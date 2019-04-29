@@ -8,6 +8,6 @@ import java.util.List;
 public interface UserService {
 
     UserModel getUserById(Integer id);
-
+    void register(UserModel userModel);
 
 }
