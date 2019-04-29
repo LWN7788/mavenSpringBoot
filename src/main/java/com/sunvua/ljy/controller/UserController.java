@@ -19,13 +19,16 @@ import java.util.Random;
 
 
 @Controller
-@RequestMapping(value = "/user",method = {RequestMethod.POST} )
+@RequestMapping(value = "/user")
+@CrossOrigin//解决跨域
 public class UserController extends BaseController{
     @Autowired
     UserService userService;
     @Autowired
     HttpServletRequest httpServletRequest;
 
+
+    @RequestMapping(value = "/register",method = {RequestMethod.POST})
     public ReturnCommonType register(String telphone,String otpCode,String name,Integer gender,Integer age,String encrptPassword) throws BusinessExcepiton{
         String inSessionOtpCode=(String)httpServletRequest.getSession().getAttribute(telphone);
         if(!inSessionOtpCode.equals(otpCode)){
@@ -34,7 +37,7 @@ public class UserController extends BaseController{
         UserModel userModel=new UserModel();
         userModel.setTelephone(telphone);
         userModel.setName(name);
-        userModel.setGender(gender);
+        userModel.setGender(new Byte(String.valueOf(gender)));
         userModel.setAge(age);
         userModel.setEncrptPassword(encrptPassword);
         userService.register(userModel);
@@ -44,9 +47,8 @@ public class UserController extends BaseController{
 
 
 
-    @RequestMapping("/getotp")
+    @RequestMapping(value="/getotp" ,method = {RequestMethod.POST} )
     @ResponseBody
-    @CrossOrigin//解决跨域
     public ReturnCommonType getOtp(@RequestParam(name="telphone")String telphone){
         Random random=new Random();
         int randomInt=random.nextInt(99999);
