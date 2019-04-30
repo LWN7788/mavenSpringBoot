@@ -22,10 +22,11 @@ public class BaseController {
             BusinessExcepiton businessExcepiton=(BusinessExcepiton)ex;
             responseData.put("errCode",businessExcepiton.getErrorCode());
             responseData.put("errMsg",businessExcepiton.getErrorMsg());
-        }else {
-            responseData.put("errCode", EmBusinessError.UNKNOWN_ERROE.getErrorCode());
-            responseData.put("errMsg",EmBusinessError.UNKNOWN_ERROE.getErrorMsg());
         }
+//        else {
+//            responseData.put("errCode", EmBusinessError.UNKNOWN_ERROE.getErrorCode());
+//            responseData.put("errMsg",EmBusinessError.UNKNOWN_ERROE.getErrorMsg());
+//        }
         return ReturnCommonType.create(responseData,"fail");
     }
 }

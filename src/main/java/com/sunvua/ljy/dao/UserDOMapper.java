@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDOMapper {
     UserDO selectByPrimaryKey(Integer id);
+    void insert(UserDO userDO);
+    void insertSelective(UserDO userDO);
 }

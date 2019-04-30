@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserPasswordDOMapper {
     UserPasswordDO selectByPrimaryKey(Integer id);
     UserPasswordDO selectByUserId(Integer userId);
+    void insert(UserPasswordDO userPasswordDO);
+    void insertSelective(UserPasswordDO userPasswordDO);
 }

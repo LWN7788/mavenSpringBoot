@@ -20,8 +20,8 @@ import java.util.Random;
 
 @Controller
 @RequestMapping(value = "/user")
-@CrossOrigin//解决跨域
-public class UserController extends BaseController{
+@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")//解决跨域
+public class UserController{
     @Autowired
     UserService userService;
     @Autowired
@@ -29,10 +29,11 @@ public class UserController extends BaseController{
 
 
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
+    @ResponseBody
     public ReturnCommonType register(String telphone,String otpCode,String name,Integer gender,Integer age,String encrptPassword) throws BusinessExcepiton{
         String inSessionOtpCode=(String)httpServletRequest.getSession().getAttribute(telphone);
-        if(!inSessionOtpCode.equals(otpCode)){
-            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR,"短信验证失败");
+        if(!otpCode.equals(inSessionOtpCode)){
+            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR,"短信验证码验证失败");
         }
         UserModel userModel=new UserModel();
         userModel.setTelephone(telphone);
@@ -40,9 +41,11 @@ public class UserController extends BaseController{
         userModel.setGender(new Byte(String.valueOf(gender)));
         userModel.setAge(age);
         userModel.setEncrptPassword(encrptPassword);
+        userModel.setRegisterMode("byPhone");
+        userModel.setThirdPartyId("8888");
         userService.register(userModel);
 
-        return ReturnCommonType.create(null);
+        return ReturnCommonType.create("注册成功");
     }
 
 
@@ -56,7 +59,7 @@ public class UserController extends BaseController{
         String otpCode=String.valueOf(randomInt);
         httpServletRequest.getSession().setAttribute(telphone,otpCode);
         System.out.println("telphone="+telphone+"&otpcode="+otpCode);
-        return ReturnCommonType.create(null);
+        return ReturnCommonType.create(otpCode);
     }
 
 

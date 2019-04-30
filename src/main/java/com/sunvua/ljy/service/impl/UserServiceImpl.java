@@ -32,13 +32,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void register(UserModel userModel) {
+    public void register(UserModel userModel) throws BusinessExcepiton {
         if(userModel==null){
-            new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR);
+            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR);
+        }
+        if(userModel.getName()==null||userModel.getGender()==null||userModel.getName()==null||userModel.getTelephone()==null){
+            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR);
         }
         UserDO userDO=convertFormModel(userModel);
-        UserPasswordDO userPasswordDO=convertFormModel1(userModel);
+        userDOMapper.insertSelective(userDO);
+//        UserPasswordDO userPasswordDO=convertFormModel1(userModel);
+//        userPasswordDOMapper.insert(userPasswordDO);
     }
     private UserDO convertFormModel(UserModel userModel){
         UserDO userDO=new UserDO();
@@ -47,7 +51,8 @@ public class UserServiceImpl implements UserService {
     }
     private UserPasswordDO convertFormModel1(UserModel userModel){
         UserPasswordDO userPasswordDO=new UserPasswordDO();
-        BeanUtils.copyProperties(userModel,userPasswordDO);
+        userPasswordDO.setEncrptPassword(userModel.getEncrptPassword());
+        userPasswordDO.setUserId(userModel.getId());
         return userPasswordDO;
     }
     private  UserModel convertFormDataObject(UserDO userDo, UserPasswordDO userPasswordDO){
