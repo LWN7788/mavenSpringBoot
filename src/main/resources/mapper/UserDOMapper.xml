@@ -32,7 +32,16 @@
             <if test="age!=null">age,</if>
             <if test="telephone!=null">telephone,</if>
             <if test="registerMode!=null">register_mode,</if>
-            <if test="thirdPartyId!=null">thirdPartyId</if>
+            <if test="thirdPartyId!=null">third_party_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="name!=null">#{name},</if>
+            <if test="gender!=null">#{gender},</if>
+            <if test="age!=null">#{age},</if>
+            <if test="telephone!=null">#{telephone},</if>
+            <if test="registerMode!=null">#{registerMode},</if>
+            <if test="thirdPartyId!=null">#{thirdPartyId},</if>
         </trim>
     </insert>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

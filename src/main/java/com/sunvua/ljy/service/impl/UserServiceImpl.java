@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         UserPasswordDO userPasswordDO=userPasswordDOMapper.selectByUserId(userDO.getId());
         return convertFormDataObject(userDO,userPasswordDO);
     }
-
+    @Transactional
     @Override
     public void register(UserModel userModel) throws BusinessExcepiton {
         if(userModel==null){
@@ -41,8 +41,10 @@ public class UserServiceImpl implements UserService {
         }
         UserDO userDO=convertFormModel(userModel);
         userDOMapper.insertSelective(userDO);
-//        UserPasswordDO userPasswordDO=convertFormModel1(userModel);
-//        userPasswordDOMapper.insert(userPasswordDO);
+
+        userModel.setId(userDO.getId());
+        UserPasswordDO userPasswordDO=convertFormModel1(userModel);
+        userPasswordDOMapper.insertSelective(userPasswordDO);
     }
     private UserDO convertFormModel(UserModel userModel){
         UserDO userDO=new UserDO();
