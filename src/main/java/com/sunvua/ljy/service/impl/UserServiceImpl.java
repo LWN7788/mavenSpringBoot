@@ -46,6 +46,12 @@ public class UserServiceImpl implements UserService {
         UserPasswordDO userPasswordDO=convertFormModel1(userModel);
         userPasswordDOMapper.insertSelective(userPasswordDO);
     }
+
+    @Override
+    public void login(String telphone, String encrptPassword) {
+
+    }
+
     private UserDO convertFormModel(UserModel userModel){
         UserDO userDO=new UserDO();
         BeanUtils.copyProperties(userModel,userDO);

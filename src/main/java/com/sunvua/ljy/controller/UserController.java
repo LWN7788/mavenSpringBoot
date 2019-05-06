@@ -27,6 +27,12 @@ public class UserController{
     @Autowired
     HttpServletRequest httpServletRequest;
 
+    @RequestMapping(value = "/login",method = {RequestMethod.POST})
+    @ResponseBody
+    public ReturnCommonType login(String telphone,String encrptPassword) throws BusinessExcepiton{
+        userService.login(telphone,encrptPassword);
+        return ReturnCommonType.create(null);
+    }
 
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
     @ResponseBody
