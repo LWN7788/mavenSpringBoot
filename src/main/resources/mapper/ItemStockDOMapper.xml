@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunvua.ljy.dao.ItemStockDOMapper">
+    <resultMap id="BaseResultMap" type="com.sunvua.ljy.daoObject.ItemStockDO">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,title,price,description,sales,img_url
+    </sql>
+    <insert id="insert" parameterType="com.sunvua.ljy.daoObject.ItemStockDO" useGeneratedKeys="true" keyProperty="id">
+
+        insert into item_stock
+        (id,stock,item_id)
+        values (#{id},#{stock},#{itemId})
+    </insert>
+    <select id="getItemStockById" parameterType="INTEGER" resultMap="BaseResultMap">
+        select id,stock,item_id from item_stock where item_id=#{id}
+    </select>
+</mapper>
