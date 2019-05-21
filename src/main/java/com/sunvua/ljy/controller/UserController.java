@@ -30,8 +30,10 @@ public class UserController{
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     @ResponseBody
     public ReturnCommonType login(String telphone,String encrptPassword) throws BusinessExcepiton{
-        userService.login(telphone,encrptPassword);
-        return ReturnCommonType.create(null);
+        UserModel userModel=userService.login(telphone,encrptPassword);
+        httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
+        httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
+        return ReturnCommonType.create("登陆成功");
     }
 
     @RequestMapping(value = "/register",method = {RequestMethod.POST})

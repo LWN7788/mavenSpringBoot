@@ -48,8 +48,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(String telphone, String encrptPassword) {
-
+    public UserModel login(String telphone, String encrptPassword) throws BusinessExcepiton{
+        UserDO userDO=userDOMapper.selectByTelphone(telphone);
+        UserPasswordDO userPasswordDO=userPasswordDOMapper.selectByUserId(userDO.getId());
+        UserModel userModel=convertFormDataObject(userDO,userPasswordDO);
+        if(!encrptPassword.equals(userModel.getEncrptPassword())){
+            throw new BusinessExcepiton(EmBusinessError.PARAMETER_VALDATION_ERROR);
+        }
+        return userModel;
     }
 
     private UserDO convertFormModel(UserModel userModel){
