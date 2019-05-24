@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunvua.ljy.dao.PromoDOMapper">
+    <resultMap id="BaseResultMap" type="com.sunvua.ljy.model.PromoModel">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="promo_name" jdbcType="INTEGER" property="promoName"/>
+        <result column="start_date" jdbcType="INTEGER" property="startDate" />
+        <result column="item_id" jdbcType="DOUBLE" property="itemId"/>
+        <result column="promoItem_price" jdbcType="INTEGER" property="promoItemPrice"/>
+    </resultMap>
+
+
+</mapper>
