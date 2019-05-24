@@ -23,4 +23,9 @@
         from item
         where id=#{id}
     </select>
+    <update id="increaseStock">
+        update item
+        set sales=sales+#{amount}
+        where id=#{id}
+    </update>
 </mapper>

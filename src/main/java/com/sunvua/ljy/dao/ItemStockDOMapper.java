@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ItemStockDOMapper {
     void insert(ItemStockDO itemStockDO);
     ItemStockDO getItemStockById(Integer id);
+    int decreaseStock(Integer itemId,Integer amount);
 }

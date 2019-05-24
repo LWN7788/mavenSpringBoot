@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunvua.ljy.dao.OrderDOMapper">
+    <resultMap id="BaseResultMap" type="com.sunvua.ljy.model.OrderModel">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="item_id" jdbcType="INTEGER" property="itemId" />
+        <result column="item_price" jdbcType="DOUBLE" property="itemPrice"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="order_price" jdbcType="DOUBLE" property="orderPrice"/>
+    </resultMap>
+
+    <insert id="insertSelective" parameterType="com.sunvua.ljy.model.OrderModel" >
+        insert into order_info
+        (id,user_id,item_id,item_price,amount,order_price)
+        values (#{id},#{userId},#{itemId},#{itemPrice},#{amount},#{orderPrice})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from user_info
+        where id=#{id,jdbcType=INTEGER}
+    </delete>
+</mapper>

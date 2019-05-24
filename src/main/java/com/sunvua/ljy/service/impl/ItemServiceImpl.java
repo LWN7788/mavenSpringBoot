@@ -2,8 +2,10 @@ package com.sunvua.ljy.service.impl;
 
 import com.sunvua.ljy.dao.ItemDOMapper;
 import com.sunvua.ljy.dao.ItemStockDOMapper;
+import com.sunvua.ljy.dao.OrderDOMapper;
 import com.sunvua.ljy.daoObject.ItemDO;
 import com.sunvua.ljy.daoObject.ItemStockDO;
+import com.sunvua.ljy.error.BusinessExcepiton;
 import com.sunvua.ljy.model.ItemModel;
 import com.sunvua.ljy.service.ItemService;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +22,7 @@ public class ItemServiceImpl implements ItemService {
     ItemDOMapper itemDOMapper;
     @Autowired
     ItemStockDOMapper itemStockDOMapper;
+
     @Override
     @Transactional
     public ItemModel createItem(ItemModel itemModel) {
@@ -43,6 +46,24 @@ public class ItemServiceImpl implements ItemService {
         ItemStockDO itemStockDO=itemStockDOMapper.getItemStockById(id);
         ItemModel itemModel=converModelFrom(itemDO,itemStockDO);
         return itemModel;
+    }
+
+    @Override
+    @Transactional
+    public boolean decreaseStock(Integer itemId, Integer amount) throws BusinessExcepiton {
+        int affectedRow=itemStockDOMapper.decreaseStock(itemId,amount);
+        if(affectedRow>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void increaseStock(Integer itemId, Integer amount) throws BusinessExcepiton {
+        itemDOMapper.increaseStock(itemId,amount);
     }
 
     private ItemDO converItemDOFromModel(ItemModel itemModel){

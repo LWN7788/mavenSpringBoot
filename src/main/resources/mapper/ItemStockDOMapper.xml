@@ -18,4 +18,9 @@
     <select id="getItemStockById" parameterType="INTEGER" resultMap="BaseResultMap">
         select id,stock,item_id from item_stock where item_id=#{id}
     </select>
+    <update id="decreaseStock" >
+        update item_stock
+        set stock=stock-#{amount}
+        where item_id=#{itemId} and stock>=#{amount}
+    </update>
 </mapper>
